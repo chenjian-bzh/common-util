@@ -3,8 +3,12 @@ class Debug {
         this.name = name;
     }
 
-    info(msg) {
+    log(msg) {
         console.log(`${this.name}: ${msg}`);
+    }
+
+    info(msg) {
+        console.info(`${this.name}: ${msg}`);
     }
 
     warn(msg) {
