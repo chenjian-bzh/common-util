@@ -46,3 +46,22 @@ export function hmac(alg, secret, s, encoding = 'base64') {
     console.log(digest)
     return digest;
 }
+/**
+ * @param  {} s
+ * @param  {} urlSafe - instead of + and _ instead of / in the standard Base64 alphabet.
+
+ */
+export function base64_encode(s, urlSafe) {
+    if (!Buffer.isBuffer(s)) {
+        s = typeof Buffer.from === 'function' ? Buffer.from(s) : new Buffer(s);
+    }
+    let e = s.toString('base64');
+    if (urlSafe) {
+        e = e.replace(/\+/g, '-').replace(/\//, '_');
+    }
+    return e;
+}
+
+export function base64_decode(s, urlSafe) {
+
+}
