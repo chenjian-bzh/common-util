@@ -5,9 +5,9 @@ import assert from 'assert';
 const ENCODING = ['hex', 'base64', 'ascii', 'utf8', 'utf16le', 'ucs2', 'latin1', 'binary']
 
 /**
- * @param  {} alg - 摘要算法
- * @param  {} s - 消息
- * @param  {} encoding - 摘要编码方式
+ * @param  {string} alg - 摘要算法
+ * @param  {any} s - 消息
+ * @param  {string} encoding - 摘要编码方式
  */
 export function hash(alg, s, encoding = 'hex') {
     const h = crypto.createHash(alg);
@@ -30,7 +30,12 @@ export function md5(s, encoding) {
 export function sha1(s, encoding) {
     return hash('sha1', s, encoding);
 }
-
+/**
+ * @param  {string} alg - 摘要算法 
+ * @param  {string} secret - 密钥
+ * @param  {any} s -加密内容
+ * @param  {string} encoding
+ */
 export function hmac(alg, secret, s, encoding = 'base64') {
     const h = crypto.createHmac(alg, secret);
     assert(ENCODING.includes(encoding), 'character encoding is not supported by nodejs!');
@@ -47,9 +52,9 @@ export function hmac(alg, secret, s, encoding = 'base64') {
     return digest;
 }
 /**
- * @param  {} s
- * @param  {} urlSafe - instead of + and _ instead of / in the standard Base64 alphabet.
-
+ * base64编码
+ * @param  {string} s - target
+ * @param  {boolean} urlSafe - instead of + and _ instead of / in the standard Base64 alphabet.
  */
 export function base64_encode(s, urlSafe) {
     if (!Buffer.isBuffer(s)) {
@@ -62,6 +67,17 @@ export function base64_encode(s, urlSafe) {
     return e;
 }
 
-export function base64_decode(s, urlSafe) {
-
+/**
+ * base64解码
+ * @param  {string} s
+ * @param  {boolean} urlSafe
+ * @param  {string} encoding
+ */
+export function base64_decode(s, urlSafe, encoding = 'utf-8') {
+    let e = Buffer.from(s, 'base64');
+    e = e.toString(encoding);
+    if (urlSafe) {
+        e = e.replace(/\-/, '+').replace('/\_/', '/');
+    }
+    return e;
 }

@@ -7,12 +7,12 @@ describe('crypto', () => {
         });
         test('digest string by sha1', () => {
             expect(sha1('hello world')).toBeDefined();
-        })
+        });
     });
     describe('hmac', () => {
         test('test hmac', () => {
             expect(hmac('md5', 'a secret', 'hello world')).toBeDefined();
-        })
+        });
     })
 })
 
